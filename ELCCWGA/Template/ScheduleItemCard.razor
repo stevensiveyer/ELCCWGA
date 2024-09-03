@@ -1,0 +1,38 @@
+﻿@using ELCCWGA.Models;
+@using MudBlazor;
+
+<MudPaper Class="mr-20" Outlined="true">
+    <MudText Typo="Typo.h4">@ThisItem.title</MudText>
+    <br />
+    <MudText Typo="Typo.h6">Date: @date</MudText>
+    <MudText Typo="Typo.body1">Price: 
+        @if (ThisItem.price == 0)
+        {
+            <MudText Inline="true"> None* </MudText>
+        }
+        else
+        {
+            <MudText Inline="true">@ThisItem.price $*</MudText>
+        }
+    </MudText>
+    <MudText Typo="Typo.body2">@ThisItem.description</MudText>
+</MudPaper>
+
+
+@code {
+    [Parameter]
+    public ScheduleItem ThisItem { get; set; }
+
+    bool showDesc = false;
+
+    DateTime? date;
+
+    protected override void OnInitialized()
+    {
+        
+        date = ThisItem.eventDate;
+
+    }
+
+
+}

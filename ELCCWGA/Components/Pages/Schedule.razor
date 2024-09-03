@@ -1,0 +1,72 @@
+﻿@using ELCCWGA.Models;
+@using ELCCWGA.Services
+@using ELCCWGA.Template
+
+@page "/schedule"
+
+<MudText Typo="Typo.h2">Schedule</MudText>
+<MudText Typo="Typo.body1">Below are the planned upcoming and previous events. </MudText>
+
+@if(loadingItems)
+{
+    <MudText Align="Align.Center" Typo="Typo.h4">Loading Events:</MudText>
+    <br />
+    <MudContainer Class="d-flex justify-center">
+        <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+    </MudContainer>
+    
+}
+else
+{
+    <MudText Align="Align.Center" Typo="Typo.h3">Upcoming Events:</MudText>
+    <MudContainer Class="mr-20 pa-20">
+        @foreach (var schedItem in ScheduleItems)
+        {
+            DateTime temp = schedItem.eventDate ?? DateTime.Now;
+            if (DateTime.Compare(temp, currTime) > 0)
+            {
+                <ScheduleItemCard ThisItem="schedItem" />
+                <br />
+            }
+
+        }
+    </MudContainer>
+    <br />
+
+    <MudText Align="Align.Center" Typo="Typo.h3">Past Events:</MudText>
+    <MudContainer Class="mr-20 pa-20">
+        @foreach (var schedItem in ScheduleItems)
+        {
+            DateTime temp = schedItem.eventDate ?? DateTime.Now;
+            if (DateTime.Compare(temp, currTime) < 0)
+            {
+                <ScheduleItemCard ThisItem="schedItem" />
+                <br />
+            }
+
+        }
+    </MudContainer>
+
+    <MudText Typo="Typo.body2">* Price of event is subject to change. Check back to this page for updates or contact WGA council memebers for more info.</MudText>
+}
+
+
+
+
+@inject ScheduleService scheduleService;
+@code {
+    List<ScheduleItem> ScheduleItems = new List<ScheduleItem>();
+
+    DateTime currTime;
+    bool loadingItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loadingItems = true;
+        currTime = DateTime.Now;
+        ScheduleItems = await scheduleService.GetScheduleItems();
+        ScheduleItems.OrderByDescending(s => s.eventDate);
+        await Task.Delay(2000);
+        loadingItems = false;
+    }
+}

@@ -1,0 +1,217 @@
+﻿@page "/post-scores"
+@using ELCCWGA.Models
+
+@if(!Submitted)
+{
+<MudGrid Class="pa-12 mr-12">
+    <MudItem xs="12">
+        <MudPaper Class="pa-4">
+            <MudForm @ref="form" @bind-IsValid="@successful" @bind-Errors="@errors">
+                <MudTextField T="string" @bind-Value="score.Name" Label="Name" Required="true" RequiredError="Name is required" />
+
+                <MudDatePicker Label="Date" @bind-Value="date" @bind-Date="date" Required="true" />
+
+                <MudRadioGroup T="string" @bind-Value="score.Tee" Required="true">
+                    <MudRadio Value="@("Red")">Red</MudRadio>
+                    <MudRadio Value="@("White")">White</MudRadio>
+                    <MudRadio Value="@("Gold")">Gold</MudRadio>
+                    <MudRadio Value="@("Green")">Green(Custom)</MudRadio>
+                </MudRadioGroup>
+            </MudForm>
+        </MudPaper>
+
+    </MudItem>
+    @if (successful)
+    {
+        <MudItem xs="12">
+            <MudPaper Class="pa-4">
+                <MudText>Front 9</MudText>
+                <MudRadioGroup T="int" @bind-Value="front9" Required="true">
+                    <MudRadio Value="0">Creek</MudRadio>
+                    <MudRadio Value="1">Lake</MudRadio>
+                    <MudRadio Value="2">Hill</MudRadio>
+                </MudRadioGroup>
+                @if (front9 == 0)
+                {
+                    <MudSlider @bind-Value="score.Creek1" Min="1" Max="10" Step="1" Color="Color.Info">Creek 1(Par 4): @score.Creek1.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Creek2" Min="1" Max="10" Step="1" Color="Color.Info">Creek 2(Par 5): @score.Creek2.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Creek3" Min="1" Max="10" Step="1" Color="Color.Info">Creek 3(Par 4): @score.Creek3.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Creek4" Min="1" Max="10" Step="1" Color="Color.Info">Creek 4(Par 4): @score.Creek4.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Creek5" Min="1" Max="10" Step="1" Color="Color.Info">Creek 5(Par 4): @score.Creek5.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Creek6" Min="1" Max="10" Step="1" Color="Color.Info">Creek 6(Par 4): @score.Creek6.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Creek7" Min="1" Max="10" Step="1" Color="Color.Info">Creek 7(Par 4): @score.Creek7.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Creek8" Min="1" Max="10" Step="1" Color="Color.Info">Creek 8(Par 4): @score.Creek8.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Creek9" Min="1" Max="10" Step="1" Color="Color.Info">Creek 9(Par 4): @score.Creek9.ToString()</MudSlider>
+                }
+                else if (front9 == 1)
+                {
+                    <MudSlider @bind-Value="score.Lake1" Min="1" Max="10" Step="1" Color="Color.Info">Lake 1(Par 4): @score.Lake1.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Lake2" Min="1" Max="10" Step="1" Color="Color.Info">Lake 2(Par 3): @score.Lake2.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Lake3" Min="1" Max="10" Step="1" Color="Color.Info">Lake 3(Par 4): @score.Lake3.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Lake4" Min="1" Max="10" Step="1" Color="Color.Info">Lake 4(Par 5): @score.Lake4.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Lake5" Min="1" Max="10" Step="1" Color="Color.Info">Lake 5(Par 4): @score.Lake5.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Lake6" Min="1" Max="10" Step="1" Color="Color.Info">Lake 6(Par 4): @score.Lake6.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Lake7" Min="1" Max="10" Step="1" Color="Color.Info">Lake 7(Par 3): @score.Lake7.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Lake8" Min="1" Max="10" Step="1" Color="Color.Info">Lake 8(Par 4): @score.Lake8.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Lake9" Min="1" Max="10" Step="1" Color="Color.Info">Lake 9(Par 5): @score.Lake9.ToString()</MudSlider>
+                }
+                else if (front9 == 2)
+                {
+                    <MudSlider @bind-Value="score.Hill1" Min="1" Max="10" Step="1" Color="Color.Info">Hill 1(Par 4): @score.Hill1.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Hill2" Min="1" Max="10" Step="1" Color="Color.Info">Hill 2(Par 4): @score.Hill2.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Hill3" Min="1" Max="10" Step="1" Color="Color.Info">Hill 3(Par 3): @score.Hill3.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Hill4" Min="1" Max="10" Step="1" Color="Color.Info">Hill 4(Par 5): @score.Hill4.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Hill5" Min="1" Max="10" Step="1" Color="Color.Info">Hill 5(Par 4): @score.Hill5.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Hill6" Min="1" Max="10" Step="1" Color="Color.Info">Hill 6(Par 4): @score.Hill6.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Hill7" Min="1" Max="10" Step="1" Color="Color.Info">Hill 7(Par 3): @score.Hill7.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Hill8" Min="1" Max="10" Step="1" Color="Color.Info">Hill 8(Par 5): @score.Hill8.ToString()</MudSlider>
+                    <MudSlider @bind-Value="score.Hill9" Min="1" Max="10" Step="1" Color="Color.Info">Hill 9(Par 4): @score.Hill9.ToString()</MudSlider>
+                }
+            </MudPaper>
+        </MudItem>
+        @if (front9 != -1)
+        {
+            <MudItem xs="12">
+                <MudPaper Class="pa-4">
+                    <MudText>Back 9</MudText>
+                    <MudRadioGroup T="int" @bind-Value="back9" Required="true">
+                        @if (front9 != 0)
+                        {
+                            <MudRadio Value="0">Creek</MudRadio>
+                        }
+                        @if (front9 != 1)
+                        {
+                            <MudRadio Value="1">Lake</MudRadio>
+                        }
+                        @if (front9 != 2)
+                        {
+                            <MudRadio Value="2">Hill</MudRadio>
+                        }
+                        <MudRadio Value="3">Did not play back 9</MudRadio>
+                    </MudRadioGroup>
+                    @if (back9 == 0)
+                    {
+                        <MudSlider @bind-Value="score.Creek1" Min="1" Max="10" Step="1" Color="Color.Info">Creek 1(Par 4): @score.Creek1.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Creek2" Min="1" Max="10" Step="1" Color="Color.Info">Creek 2(Par 5): @score.Creek2.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Creek3" Min="1" Max="10" Step="1" Color="Color.Info">Creek 3(Par 4): @score.Creek3.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Creek4" Min="1" Max="10" Step="1" Color="Color.Info">Creek 4(Par 4): @score.Creek4.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Creek5" Min="1" Max="10" Step="1" Color="Color.Info">Creek 5(Par 4): @score.Creek5.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Creek6" Min="1" Max="10" Step="1" Color="Color.Info">Creek 6(Par 4): @score.Creek6.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Creek7" Min="1" Max="10" Step="1" Color="Color.Info">Creek 7(Par 4): @score.Creek7.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Creek8" Min="1" Max="10" Step="1" Color="Color.Info">Creek 8(Par 4): @score.Creek8.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Creek9" Min="1" Max="10" Step="1" Color="Color.Info">Creek 9(Par 4): @score.Creek9.ToString()</MudSlider>
+                    }
+                    else if (back9 == 1)
+                    {
+                        <MudSlider @bind-Value="score.Lake1" Min="1" Max="10" Step="1" Color="Color.Info">Lake 1(Par 4): @score.Lake1.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Lake2" Min="1" Max="10" Step="1" Color="Color.Info">Lake 2(Par 3): @score.Lake2.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Lake3" Min="1" Max="10" Step="1" Color="Color.Info">Lake 3(Par 4): @score.Lake3.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Lake4" Min="1" Max="10" Step="1" Color="Color.Info">Lake 4(Par 5): @score.Lake4.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Lake5" Min="1" Max="10" Step="1" Color="Color.Info">Lake 5(Par 4): @score.Lake5.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Lake6" Min="1" Max="10" Step="1" Color="Color.Info">Lake 6(Par 4): @score.Lake6.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Lake7" Min="1" Max="10" Step="1" Color="Color.Info">Lake 7(Par 3): @score.Lake7.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Lake8" Min="1" Max="10" Step="1" Color="Color.Info">Lake 8(Par 4): @score.Lake8.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Lake9" Min="1" Max="10" Step="1" Color="Color.Info">Lake 9(Par 5): @score.Lake9.ToString()</MudSlider>
+                    }
+                    else if (back9 == 2)
+                    {
+                        <MudSlider @bind-Value="score.Hill1" Min="1" Max="10" Step="1" Color="Color.Info">Hill 1(Par 4): @score.Hill1.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Hill2" Min="1" Max="10" Step="1" Color="Color.Info">Hill 2(Par 4): @score.Hill2.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Hill3" Min="1" Max="10" Step="1" Color="Color.Info">Hill 3(Par 3): @score.Hill3.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Hill4" Min="1" Max="10" Step="1" Color="Color.Info">Hill 4(Par 5): @score.Hill4.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Hill5" Min="1" Max="10" Step="1" Color="Color.Info">Hill 5(Par 4): @score.Hill5.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Hill6" Min="1" Max="10" Step="1" Color="Color.Info">Hill 6(Par 4): @score.Hill6.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Hill7" Min="1" Max="10" Step="1" Color="Color.Info">Hill 7(Par 3): @score.Hill7.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Hill8" Min="1" Max="10" Step="1" Color="Color.Info">Hill 8(Par 5): @score.Hill8.ToString()</MudSlider>
+                        <MudSlider @bind-Value="score.Hill9" Min="1" Max="10" Step="1" Color="Color.Info">Hill 9(Par 4): @score.Hill9.ToString()</MudSlider>
+                    }
+                </MudPaper>
+            </MudItem>
+        }
+
+        if(front9 > -1 && back9 > -1)
+        {
+            <MudItem xs="12">
+                <MudPaper>
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth="true" OnClick="SubmitScore" Disabled="@(Submitted)">Submit</MudButton>
+                </MudPaper>
+            </MudItem>
+        }
+        
+    }
+</MudGrid>
+}
+
+@if(Submitted)
+{
+    <MudText Align="Align.Center">You can find your scores on the Scores Page</MudText>
+}
+
+<MudDialog Class="blur-background" @bind-Visible="openDoneDialog">
+    <TitleContent>
+        Score Successfully Submitted!
+    </TitleContent>
+    <DialogContent>
+        <MudText Align="Align.Center">Would you like to submit another score?</MudText>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="CreateNew">Yes</MudButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Error" OnClick="Finished">No</MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+<style>
+    .blur-background{
+        backdrop-filter: blur(10px);
+    }
+</style>
+
+
+@inject AppDbContext dbContext
+@code {
+    bool successful;
+    string[] errors = { };
+    MudForm form;
+
+    int front9 = -1;
+    int back9 = -1;
+
+    public DateTime? date = DateTime.Today;
+
+
+    GolfScore score = new GolfScore();
+
+    bool Submitted = false;
+
+    bool openDoneDialog = false; 
+    private void Finished()
+    {
+        Submitted = true;
+        openDoneDialog = false;
+
+    }
+ 
+
+    private async Task SubmitScore()
+    {
+        DateTime newDate = date ?? DateTime.Today;
+        score.Date = DateOnly.FromDateTime(newDate);
+        dbContext.Scores.Add(score);
+        await dbContext.SaveChangesAsync();
+        Submitted = true;
+        openDoneDialog = true;
+
+    }
+    public void CreateNew()
+    {
+        score = new GolfScore();
+        date = DateTime.Today;
+        front9 = -1;
+        back9 = -1;
+        successful = false;
+        openDoneDialog = false;
+    }
+
+    
+}

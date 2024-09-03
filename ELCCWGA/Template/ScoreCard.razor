@@ -1,0 +1,163 @@
+﻿@using ELCCWGA.Models
+@using MudBlazor
+
+
+@if(BestScore)
+{
+    <MudPaper Class="pa-12 mr-6" xs="12" Elevation="0" Outlined="true">
+        <MudTable Items="@scoreCardInfo">
+            <ToolBarContent>
+                <MudText>@ThisScore.Name's Best Score</MudText>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>Hole</MudTh>
+                <MudTh>1</MudTh>
+                <MudTh>2</MudTh>
+                <MudTh>3</MudTh>
+                <MudTh>4</MudTh>
+                <MudTh>5</MudTh>
+                <MudTh>6</MudTh>
+                <MudTh>7</MudTh>
+                <MudTh>8</MudTh>
+                <MudTh>9</MudTh>
+                <MudTh>Total</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Hole">@context.title</MudTd>
+                <MudTd DataLabel="1">@context.H1</MudTd>
+                <MudTd DataLabel="2">@context.H2</MudTd>
+                <MudTd DataLabel="3">@context.H3</MudTd>
+                <MudTd DataLabel="4">@context.H4</MudTd>
+                <MudTd DataLabel="5">@context.H5</MudTd>
+                <MudTd DataLabel="6">@context.H6</MudTd>
+                <MudTd DataLabel="7">@context.H7</MudTd>
+                <MudTd DataLabel="8">@context.H8</MudTd>
+                <MudTd DataLabel="9">@context.H9</MudTd>
+                <MudTd DataLabel="Total">@context.total</MudTd>
+            </RowTemplate>
+        </MudTable>
+    </MudPaper>
+}
+else
+{
+    <MudPaper Class="pa-12 mr-6" xs="12" Elevation="0">
+        <MudTable Items="@scoreCardInfo">
+            <ToolBarContent>
+                <MudText>@ThisScore.Name, Date Played: @ThisScore.Date, Tee's Played: @ThisScore.Tee</MudText>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>Hole</MudTh>
+                <MudTh>1</MudTh>
+                <MudTh>2</MudTh>
+                <MudTh>3</MudTh>
+                <MudTh>4</MudTh>
+                <MudTh>5</MudTh>
+                <MudTh>6</MudTh>
+                <MudTh>7</MudTh>
+                <MudTh>8</MudTh>
+                <MudTh>9</MudTh>
+                <MudTh>Total</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Hole">@context.title</MudTd>
+                <MudTd DataLabel="1">@context.H1</MudTd>
+                <MudTd DataLabel="2">@context.H2</MudTd>
+                <MudTd DataLabel="3">@context.H3</MudTd>
+                <MudTd DataLabel="4">@context.H4</MudTd>
+                <MudTd DataLabel="5">@context.H5</MudTd>
+                <MudTd DataLabel="6">@context.H6</MudTd>
+                <MudTd DataLabel="7">@context.H7</MudTd>
+                <MudTd DataLabel="8">@context.H8</MudTd>
+                <MudTd DataLabel="9">@context.H9</MudTd>
+                <MudTd DataLabel="Total">@context.total</MudTd>
+            </RowTemplate>
+        </MudTable>
+    </MudPaper>
+    
+}
+
+
+
+
+@code {
+    [Parameter]
+    public GolfScore ThisScore { get; set; }
+
+    [Parameter]
+    public bool BestScore { get; set; }
+
+
+    private List<ScoreCardData> scoreCardInfo = new List<ScoreCardData>();
+
+    ScoreCardData CreekPar = new ScoreCardData { title = "Par", H1 = 4, H2 = 5, H3 = 4, H4 = 3, H5 = 4, H6 = 5, H7 = 4, H8 = 3, H9 = 4, total = 36};
+    ScoreCardData LakePar = new ScoreCardData { title = "Par", H1 = 4, H2 = 3, H3 = 4, H4 = 5, H5 = 4, H6 = 4, H7 = 3, H8 = 4, H9 = 5, total = 36 };
+    ScoreCardData HillPar = new ScoreCardData { title = "Par", H1 = 4, H2 = 4, H3 = 3, H4 = 5, H5 = 4, H6 = 4, H7 = 3, H8 = 5, H9 = 4, total = 36 };
+
+    protected override void OnInitialized()
+    {
+        int CreekScore = ValidCreekScore(ThisScore);
+        int LakeScore = ValidLakeScore(ThisScore);
+        int HillScore = ValidHillScore(ThisScore);
+
+
+    if (CreekScore > 0)
+        {
+            scoreCardInfo.Add(CreekPar);
+            scoreCardInfo.Add(new ScoreCardData { title = "Creek", H1 = ThisScore.Creek1, H2 = ThisScore.Creek2, H3 = ThisScore.Creek3, H4 = ThisScore.Creek4, H5 = ThisScore.Creek5, H6 = ThisScore.Creek6, H7 = ThisScore.Creek7, H8 = ThisScore.Creek8, H9 = ThisScore.Creek9, total = CreekScore });
+        }
+        if (LakeScore > 0)
+        {
+            scoreCardInfo.Add(LakePar);
+            scoreCardInfo.Add(new ScoreCardData { title = "Lake", H1 = ThisScore.Lake1, H2 = ThisScore.Lake2, H3 = ThisScore.Lake3, H4 = ThisScore.Lake4, H5 = ThisScore.Lake5, H6 = ThisScore.Lake6, H7 = ThisScore.Lake7, H8 = ThisScore.Lake8, H9 = ThisScore.Lake9, total = LakeScore });
+        }
+        if (HillScore > 0)
+        {
+            scoreCardInfo.Add(HillPar);
+            scoreCardInfo.Add(new ScoreCardData { title = "Hill", H1 = ThisScore.Hill1, H2 = ThisScore.Hill2, H3 = ThisScore.Hill3, H4 = ThisScore.Hill4, H5 = ThisScore.Hill5, H6 = ThisScore.Hill6, H7 = ThisScore.Hill7, H8 = ThisScore.Hill8, H9 = ThisScore.Hill9, total = CreekScore});
+        }
+
+
+    }
+
+    private class ScoreCardData
+    {
+        public string title { get; set;  }
+        public int H1 { get; set; }
+        public int H2 { get; set; }
+        public int H3 { get; set; }
+        public int H4 { get; set; }
+        public int H5 { get; set; }
+        public int H6 { get; set; }
+        public int H7 { get; set; }
+        public int H8 { get; set; }
+        public int H9 { get; set; }
+        public int total { get; set; }
+    }
+
+    private string GetRowClass(ScoreCardData x)
+    {
+        if (scoreCardInfo.IndexOf(x) % 2 == 1)
+            return "par-row";
+        return String.Empty;
+    }
+
+    private int ValidCreekScore(GolfScore score)
+    {
+        return score.Creek1 + score.Creek2 + score.Creek3 + score.Creek4 + score.Creek5 + score.Creek6 + score.Creek7 + score.Creek8 + score.Creek9;
+
+    }
+    private int ValidLakeScore(GolfScore score)
+    {
+        return score.Lake1 + score.Lake2 + score.Lake3 + score.Lake4 + score.Lake5 + score.Lake6 + score.Lake7 + score.Lake8 + score.Lake9;
+
+    }
+    private int ValidHillScore(GolfScore score)
+    {
+        return score.Hill1 + score.Hill2 + score.Hill3 + score.Hill4 + score.Hill5 + score.Hill6 + score.Hill7 + score.Hill8 + score.Hill9;
+
+    }
+
+
+
+    
+}

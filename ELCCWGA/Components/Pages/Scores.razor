@@ -1,0 +1,218 @@
+﻿@using ELCCWGA.Models;
+@using ELCCWGA.Services
+@using ELCCWGA.Template
+
+@page "/scores"
+
+<h3>Scores</h3>
+<MudPaper Class="pa-12 mr-12" Width="600">
+    <MudText>Enter values and hit search to find specific scores from someone</MudText>
+    <MudTextField T="string" @bind-Value="searchName" Label="Name"/>
+    <MudRadioGroup T="bool" @bind-Value="findBest">
+        <MudRadio Value="@(true)">Find Best Score</MudRadio>
+        <MudRadio Value="@(false)">Find All Scores</MudRadio>
+    </MudRadioGroup>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SearchScores">Search</MudButton>
+</MudPaper>
+
+@if(searching)
+{
+    <h4>Searching</h4>
+    <MudProgressCircular Color="Color.Default" Indeterminate="true"/>
+}
+
+@if(!doSearch)
+{
+    <h4>All Scores: </h4>    
+    @foreach(var score in ScoresList)
+    {
+            <ScoreCard ThisScore="score" BestScore="false" />
+    }
+}
+else if(doSearch && searchNotFound)
+{
+    <MudText>No entries found </MudText>
+}
+else if(doSearch && searchedBest)
+{
+    <ScoreCard ThisScore="bestScore" BestScore="true" />
+}
+else
+{
+    <h4>@searchName Scores: </h4>
+        @foreach (var score in SearchedScores)
+        {
+            <ScoreCard ThisScore="score" BestScore="false"/>
+        }
+}
+@inject ScoresService scoreService;
+@code {
+    List<GolfScore> ScoresList = new List<GolfScore>();
+    List<GolfScore> SearchedScores = new List<GolfScore>();
+    GolfScore bestScore;
+
+    bool doSearch = false;
+    bool searching = false;
+    bool searchNotFound = true;
+    string searchName;
+    bool findBest;
+    bool searchedBest;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        ScoresList = await scoreService.GetAllScores();
+        ScoresList.Reverse();
+    }
+    public void SearchScores()
+    {
+        searchNotFound = true; 
+        doSearch = false;
+        searching = true;
+        SearchedScores = new List<GolfScore>();
+        searchedBest = false;
+
+        foreach (var score in ScoresList)
+        {
+            if (score.Name == searchName)
+            {
+                searchNotFound = false;
+                SearchedScores.Add(score);
+            }
+
+        }
+        if(findBest)
+        {
+            bestScore = new GolfScore();
+
+            if(SearchedScores.Count() > 0)
+            {
+                foreach (var score in SearchedScores)
+                {
+                    if (bestScore.Creek1 == 0 && score.Creek1 != 0)
+                        bestScore.Creek1 = score.Creek1;
+                    else if (score.Creek1 != 0 && score.Creek1 < bestScore.Creek1)
+                        bestScore.Creek1 = score.Creek1;                   
+                    if (bestScore.Creek2 == 0 && score.Creek2 != 0)
+                        bestScore.Creek2 = score.Creek2;
+                    else if (score.Creek2 != 0 && score.Creek2 < bestScore.Creek2)
+                        bestScore.Creek2 = score.Creek2;
+                    if (bestScore.Creek3 == 0 && score.Creek3 != 0)
+                        bestScore.Creek3 = score.Creek3;
+                    else if (score.Creek3 != 0 && score.Creek3 < bestScore.Creek3)
+                        bestScore.Creek3 = score.Creek3;
+                    if (bestScore.Creek4 == 0 && score.Creek4 != 0)
+                        bestScore.Creek4 = score.Creek4;
+                    else if (score.Creek4 != 0 && score.Creek4 < bestScore.Creek4)
+                        bestScore.Creek4 = score.Creek4;
+                    if (bestScore.Creek5 == 0 && score.Creek5 != 0)
+                        bestScore.Creek5 = score.Creek5;
+                    else if (score.Creek5 != 0 && score.Creek5 < bestScore.Creek5)
+                        bestScore.Creek5 = score.Creek5;
+                    if (bestScore.Creek6 == 0 && score.Creek6 != 0)
+                        bestScore.Creek6 = score.Creek6;
+                    else if (score.Creek6 != 0 && score.Creek6 < bestScore.Creek6)
+                        bestScore.Creek6 = score.Creek6;
+                    if (bestScore.Creek7 == 0 && score.Creek7 != 0)
+                        bestScore.Creek7 = score.Creek7;
+                    else if (score.Creek7 != 0 && score.Creek7 < bestScore.Creek7)
+                        bestScore.Creek7 = score.Creek7;
+                    if (bestScore.Creek8 == 0 && score.Creek8 != 0)
+                        bestScore.Creek8 = score.Creek8;
+                    else if (score.Creek8 != 0 && score.Creek8 < bestScore.Creek8)
+                        bestScore.Creek8 = score.Creek8;
+                    if (bestScore.Creek9 == 0 && score.Creek9 != 0)
+                        bestScore.Creek9 = score.Creek9;
+                    else if (score.Creek9 != 0 && score.Creek9 < bestScore.Creek9)
+                        bestScore.Creek9 = score.Creek9;
+
+
+                    if (bestScore.Lake1 == 0 && score.Lake1 != 0)
+                        bestScore.Lake1 = score.Lake1;
+                    else if (score.Lake1 != 0 && score.Lake1 < bestScore.Lake1)
+                        bestScore.Lake1 = score.Lake1;
+                    if (bestScore.Lake2 == 0 && score.Lake2 != 0)
+                        bestScore.Lake2 = score.Lake2;
+                    else if (score.Lake2 != 0 && score.Lake2 < bestScore.Lake2)
+                        bestScore.Lake2 = score.Lake2;
+                    if (bestScore.Lake3 == 0 && score.Lake3 != 0)
+                        bestScore.Lake3 = score.Lake3;
+                    else if (score.Lake3 != 0 && score.Lake3 < bestScore.Lake3)
+                        bestScore.Lake3 = score.Lake3;
+                    if (bestScore.Lake4 == 0 && score.Lake4 != 0)
+                        bestScore.Lake4 = score.Lake4;
+                    else if (score.Lake4 != 0 && score.Lake4 < bestScore.Lake4)
+                        bestScore.Lake4 = score.Lake4;
+                    if (bestScore.Lake5 == 0 && score.Lake5 != 0)
+                        bestScore.Lake5 = score.Lake5;
+                    else if (score.Lake5 != 0 && score.Lake5 < bestScore.Lake5)
+                        bestScore.Lake5 = score.Lake5;
+                    if (bestScore.Lake6 == 0 && score.Lake6 != 0)
+                        bestScore.Lake6 = score.Lake6;
+                    else if (score.Lake6 != 0 && score.Lake6 < bestScore.Lake6)
+                        bestScore.Lake6 = score.Lake6;
+                    if (bestScore.Lake7 == 0 && score.Lake7 != 0)
+                        bestScore.Lake7 = score.Lake7;
+                    else if (score.Lake7 != 0 && score.Lake7 < bestScore.Lake7)
+                        bestScore.Lake7 = score.Lake7;
+                    if (bestScore.Lake8 == 0 && score.Lake8 != 0)
+                        bestScore.Lake8 = score.Lake8;
+                    else if (score.Lake8 != 0 && score.Lake8 < bestScore.Lake8)
+                        bestScore.Lake8 = score.Lake8;
+                    if (bestScore.Lake9 == 0 && score.Lake9 != 0)
+                        bestScore.Lake9 = score.Lake9;
+                    else if (score.Lake9 != 0 && score.Lake9 < bestScore.Lake9)
+                        bestScore.Lake9 = score.Lake9;
+
+                    if (bestScore.Hill1 == 0 && score.Hill1 != 0)
+                        bestScore.Hill1 = score.Hill1;
+                    else if (score.Hill1 != 0 && score.Hill1 < bestScore.Hill1)
+                        bestScore.Hill1 = score.Hill1;
+                    if (bestScore.Hill2 == 0 && score.Hill2 != 0)
+                        bestScore.Hill2 = score.Hill2;
+                    else if (score.Hill2 != 0 && score.Hill2 < bestScore.Hill2)
+                        bestScore.Hill2 = score.Hill2;
+                    if (bestScore.Hill3 == 0 && score.Hill3 != 0)
+                        bestScore.Hill3 = score.Hill3;
+                    else if (score.Hill3 != 0 && score.Hill3 < bestScore.Hill3)
+                        bestScore.Hill3 = score.Hill3;
+                    if (bestScore.Hill4 == 0 && score.Hill4 != 0)
+                        bestScore.Hill4 = score.Hill4;
+                    else if (score.Hill4 != 0 && score.Hill4 < bestScore.Hill4)
+                        bestScore.Hill4 = score.Hill4;
+                    if (bestScore.Hill5 == 0 && score.Hill5 != 0)
+                        bestScore.Hill5 = score.Hill5;
+                    else if (score.Hill5 != 0 && score.Hill5 < bestScore.Hill5)
+                        bestScore.Hill5 = score.Hill5;
+                    if (bestScore.Hill6 == 0 && score.Hill6 != 0)
+                        bestScore.Hill6 = score.Hill6;
+                    else if (score.Hill6 != 0 && score.Hill6 < bestScore.Hill6)
+                        bestScore.Hill6 = score.Hill6;
+                    if (bestScore.Hill7 == 0 && score.Hill7 != 0)
+                        bestScore.Hill7 = score.Hill7;
+                    else if (score.Hill7 != 0 && score.Hill7 < bestScore.Hill7)
+                        bestScore.Hill7 = score.Hill7;
+                    if (bestScore.Hill8 == 0 && score.Hill8 != 0)
+                        bestScore.Hill8 = score.Hill8;
+                    else if (score.Hill8 != 0 && score.Hill8 < bestScore.Hill8)
+                        bestScore.Hill8 = score.Hill8;
+                    if (bestScore.Hill9 == 0 && score.Hill9 != 0)
+                        bestScore.Hill9 = score.Hill9;
+                    else if (score.Hill9 != 0 && score.Hill9 < bestScore.Hill9)
+                        bestScore.Hill9 = score.Hill9;
+                }
+            }
+
+            searchedBest = true;
+
+        }
+
+        searching = false;
+        doSearch = true;
+
+    }
+    public int getSum(GolfScore score)
+    {
+        return 1;
+    }
+}

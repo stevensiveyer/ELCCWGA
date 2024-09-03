@@ -1,0 +1,51 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="CustomTheme" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar>
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Dark" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudImage Src="images/logo.png" Width="50" Height="50"></MudImage>
+        <MudText>Eagles Landing WGA</MudText>
+    </MudAppBar>
+    <MudDrawer @bind-Open="@_drawerOpen" Variant="@DrawerVariant.Persistent">
+        <NavMenu />
+    </MudDrawer>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    bool _drawerOpen = true;
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    MudTheme CustomTheme = new MudTheme()
+        {
+            PaletteLight = new PaletteLight()
+            {
+                Primary = Colors.Purple.Darken2,
+                Secondary = Colors.Gray.Default,
+                AppbarBackground = Colors.Purple.Darken2,
+                Dark = Colors.Shades.Black,
+                DarkContrastText = Colors.Shades.White,
+            },
+            PaletteDark = new PaletteDark()
+            {
+                Primary = Colors.Purple.Darken4,
+                Secondary = Colors.Gray.Default,
+                AppbarBackground = Colors.Purple.Darken4,
+                Dark = Colors.Shades.Black,
+                DarkContrastText = Colors.Shades.White,
+            }
+        };
+
+
+}

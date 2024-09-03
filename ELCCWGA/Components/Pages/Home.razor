@@ -1,0 +1,77 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<br />
+<MudText Typo="Typo.h3" Align="Align.Center">Welcome to the home of Eagles Landing Country Club WGA</MudText>
+<br />
+
+<MudCarousel Style="height:600px;" AutoCycle="true" AutoCycleTime="autoCycleTimer" ShowArrows="false" ShowBullets="false" TData="object" >
+    <MudCarouselItem>
+        <MudContainer Class="d-flex justify-center">
+            <MudImage Src="images/WGAGroup.jpg" ObjectFit="ObjectFit.Fill" />
+        </MudContainer>
+    </MudCarouselItem>
+    <MudCarouselItem>
+        <MudContainer Class="d-flex justify-center">
+            <MudImage Src="images/WGAPasta.jpg" ObjectFit="ObjectFit.Fill" />
+        </MudContainer>
+    </MudCarouselItem>
+    <MudCarouselItem>
+        <MudContainer Class="d-flex justify-center">
+            <MudImage Src="images/WGAPutt.jpg" ObjectFit="ObjectFit.Fill"/>
+        </MudContainer>
+    </MudCarouselItem>
+    <MudCarouselItem>
+        <MudContainer Class="d-flex justify-center">
+            <MudImage Src="images/WGASpringFling.jpg" ObjectFit="ObjectFit.Fill"/>
+        </MudContainer>>
+    </MudCarouselItem>
+    <MudCarouselItem>
+        <MudContainer Class="d-flex justify-center">
+            <MudImage Src="images/WGASpringFlingCart.jpg" ObjectFit="ObjectFit.Fill"  />
+        </MudContainer>
+    </MudCarouselItem>
+    <MudCarouselItem>
+        <MudContainer Class="d-flex justify-center">
+            <MudImage Src="images/WGAPastaDuo.jpg" ObjectFit="ObjectFit.Fill" />
+        </MudContainer>
+    </MudCarouselItem>
+    <MudCarouselItem>
+        <MudContainer Class="d-flex justify-center">
+            <MudImage Src="images/WGAPastaWide.jpg" ObjectFit="ObjectFit.Fill" />
+        </MudContainer>
+    </MudCarouselItem>
+</MudCarousel>
+
+<br />
+
+
+<MudPaper Class="pa-12 mr-12" Outlined="false" Elevation="0">
+    <MudText Typo="Typo.h4" Align="Align.Center">About the WGA at Eagles Landing</MudText>
+    <MudText Typo="Typo.h6">Weekly Golf:</MudText>
+    <MudText Typo="Typo.body1">
+       We have Tee times every tuesday morning(depending on weather) that you are able to join. It doesnt matter your proficency level in golf any one is allowed to join the group given you have signed up already.
+       These weekly golf give a good opportunity to meet new people or old friends and get a round of golf in. You dont have to play the whole 18 holes if you dont want to but just getting out to play is what it is about.
+    </MudText>
+    <br />
+    <MudText Typo="Typo.h6">Events:</MudText>
+    <MudText Typo="Typo.body1">
+        The WGA hosts many different social events throughout the year normally doing at least one a month depending on weather. These events normally vary differently on the event. 
+        Some examples we have done are the Putt Putt Pasta where a semi mini golf course was constructed on the practice putting green and then the group learned how to and made their own pasta dishes. 
+        Another event we have hosted is the Spring Fling where duos decorated their cart and competed with each other against other duos. These events are a blast for everyone and we hope you are able to make it to the next one.
+    </MudText>
+</MudPaper>
+
+<MudPaper Class="pa-12 mr-12" Outlined="false" Elevation="0">
+    <MudText Typo="Typo.h4" Align="Align.Center">Contact Us</MudText>
+    <MudText Typo="Typo.body1">
+        If you want to get involved and join the WGA at Eagles Landing reach out to Vanessa Siveyer via the following email: <MudText Color=Color.Primary Typo="Typo.body1" Inline="true">ELCCWGA@gmail.com</MudText>
+    </MudText>
+</MudPaper>
+
+
+
+@code{
+    TimeSpan autoCycleTimer = new TimeSpan(0, 0, 10);
+}
